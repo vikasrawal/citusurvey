@@ -35,6 +35,7 @@
   citusheet<-"https://docs.google.com/spreadsheets/d/1KhtF2S6WktYIRz_n-Tt90Tyd1hojDdyAW8JccRcZmSA/edit?usp=sharing"
 #+end_src
 
++ Number of workers by sex
 
 #+NAME: sex
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -49,7 +50,7 @@ citu.cer[,.N,Sex]
 | Male   | 257 |
 | Female |   7 |
 
-
++ Number of workers in different age groups
 
 #+NAME: age-group
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -73,6 +74,7 @@ citu.cer[,.N,Sex]
 | 5. More than 60   |   2 |
 | 6. No information |  28 |
 
++ Number of workers in different social groups
 
 #+NAME: social-group
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -90,14 +92,14 @@ citu.cer[,.N,Social.Group]
 | ST           |   6 |
 
 
++ Number of workers, by religion
 
-
-#+CAPTION: Number of workers, by religion
 #+NAME: religion
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
 citu.cer[,.N,Religion]
 #+end_src
 
+#+CAPTION: Number of workers, by religion
 #+RESULTS: religion
 | Religion  |   N |
 |-----------+-----|
@@ -106,6 +108,8 @@ citu.cer[,.N,Religion]
 | Lingayath |   1 |
 | Muslim    |  14 |
 | Christian |   6 |
+
++ Number of workers who reported different mother tongues
 
 #+NAME: mother.tongue
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -268,6 +272,8 @@ citu.cer[,.N,Religion]
 | Casual                                                                           |  1 |
 | Hk                                                                               |  2 |
 | Canteen                                                                          |  1 |
+
++ How long have you been working in this factory?
 
 #+NAME: work.duration
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
