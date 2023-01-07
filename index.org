@@ -41,6 +41,7 @@
 citu.cer[,.N,Sex]
 #+end_src
 
+#+CAPTION: Number of workers by sex
 #+RESULTS: sex
 | Sex    |   N |
 |--------+-----|
@@ -59,6 +60,7 @@ citu.cer[,.N,Sex]
   citu.cer[,.N,Age.group][order(Age.group)]
 #+end_src
 
+#+CAPTION: Number of workers in different age groups
 #+RESULTS: age-group
 | Age.group         |   N |
 |-------------------+-----|
