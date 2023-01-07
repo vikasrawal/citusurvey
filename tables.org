@@ -1,0 +1,287 @@
+#+TITLE: CITU Survey
+#+OPTIONS: toc:nil H:2
+#+LATEX_CLASS: varticle
+#+LATEX_CLASS_OPTIONS: [11pt,twoside,openany,strict,extrafontsizes,article]
+#+OPTIONS: toc:nil num:2
+#+STARTUP: hideblocks
+#+PROPERTY: header-args:R :session citu :eval never-export
+
+
+#+NAME: readdata
+#+BEGIN_SRC R :results silent :exports none
+  library(data.table)
+  library(openxlsx)
+  read.xlsx("citu-survey-cer.xlsx",sheet=2)->citu.cer
+  setDT(citu.cer)
+  names(citu.cer)
+  gsub("/",".",names(citu.cer))->names(citu.cer)
+  gsub(",",".",names(citu.cer))->names(citu.cer)
+  gsub("\\-",".",names(citu.cer))->names(citu.cer)
+  gsub("\\(",".",names(citu.cer))->names(citu.cer)
+  gsub("\\)",".",names(citu.cer))->names(citu.cer)
+  gsub("\\?","",names(citu.cer))->names(citu.cer)
+  gsub("\\,",".",names(citu.cer))->names(citu.cer)
+  gsub("\\&",".",names(citu.cer))->names(citu.cer)
+  gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
+  gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
+  gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
+
+#+end_src
+
+#+NAME: googlesheet-setup
+#+BEGIN_SRC R :results silent :exports none
+  library(googlesheets4)
+  gs4_deauth()
+  citusheet<-"https://docs.google.com/spreadsheets/d/1KhtF2S6WktYIRz_n-Tt90Tyd1hojDdyAW8JccRcZmSA/edit?usp=sharing"
+#+end_src
+
+
+#+NAME: sex
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+citu.cer[,.N,Sex]
+#+end_src
+
+#+RESULTS: sex
+| Sex    |   N |
+|--------+-----|
+|        |  34 |
+| Male   | 257 |
+| Female |   7 |
+
+#+NAME: age-group
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  citu.cer[Age<=18,Age.group:="1. Up to 18"]
+  citu.cer[is.na(Age.group)&Age<=30,Age.group:="2. Up to 30"]
+  citu.cer[is.na(Age.group)&Age<=45,Age.group:="3. Up to 45"]
+  citu.cer[is.na(Age.group)&Age<=60,Age.group:="4. Up to 60"]
+  citu.cer[is.na(Age.group)&Age>60,Age.group:="5. More than 60"]
+  citu.cer[is.na(Age.group),Age.group:="6. No information"]
+  citu.cer[,.N,Age.group][order(Age.group)]
+#+end_src
+
+#+RESULTS: age-group
+| Age.group         |   N |
+|-------------------+-----|
+| 1. Up to 18       |   1 |
+| 2. Up to 30       |  44 |
+| 3. Up to 45       | 162 |
+| 4. Up to 60       |  61 |
+| 5. More than 60   |   2 |
+| 6. No information |  28 |
+
+#+NAME: social-group
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+citu.cer[,.N,Social.Group]
+#+end_src
+
+#+RESULTS: social-group
+| Social.Group |   N |
+|--------------+-----|
+|              |  60 |
+| OBC          | 115 |
+| SC           |  28 |
+| General      |  89 |
+| ST           |   6 |
+
+#+NAME: religion
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+citu.cer[,.N,Religion]
+#+end_src
+
+#+RESULTS: religion
+| Religion  |   N |
+|-----------+-----|
+|           |  57 |
+| Hindu     | 220 |
+| Lingayath |   1 |
+| Muslim    |  14 |
+| Christian |   6 |
+
+#+NAME: mother.tongue
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  citu.cer[Mother.tongue=="Kannnada"|Mother.tongue=="kannada"|Mother.tongue=="KANNADA"|Mother.tongue=="ಕನ್ನಡ"|Mother.tongue=="Kasturi ಕನ್ನಡ",Mother.tongue:="Kannada"]
+  citu.cer[Mother.tongue=="Thelugu"|Mother.tongue=="TEUGU"|Mother.tongue=="Telgu"|Mother.tongue=="Telugu and Hindi"|Mother.tongue=="Telugu Hindi",Mother.tongue:="Telugu"]
+  citu.cer[Mother.tongue=="TAMIL",Mother.tongue:="Tamil"]
+  citu.cer[Mother.tongue=="हिंदी"|Mother.tongue=="HINDI"|Mother.tongue=="Hindu"|Mother.tongue=="Hind",Mother.tongue:="Hindi"]
+  citu.cer[Mother.tongue=="URDU",Mother.tongue:="Urdu"]
+  citu.cer[Mother.tongue=="Citu",Mother.tongue:=NA]
+  citu.cer[,.N,Mother.tongue]
+#+end_src
+
+#+RESULTS: mother.tongue
+| Mother.tongue |   N |
+|---------------+-----|
+|               |  60 |
+| Kannada       | 108 |
+| Hindi         |  15 |
+| Marathi       |   6 |
+| Urdu          |   7 |
+| Tamil         |   4 |
+| Kodava        |   1 |
+| Banjara       |   1 |
+| Konkani       |   1 |
+| Telugu        |  93 |
+| Lambadi       |   2 |
+
+#+NAME: education
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  citu.cer[,.N,Education.Training]
+#+end_src
+
+#+RESULTS: education
+| Education.Training   |   N |
+|----------------------+-----|
+|                      |  63 |
+| Secondary            |  22 |
+| ITI                  | 145 |
+| Graduation           |  25 |
+| Higher Secondary     |  24 |
+| Diploma Engineering  |   8 |
+| Polytechnic          |   3 |
+| JOC                  |   1 |
+| Masters              |   4 |
+| Graduate Engineering |   2 |
+| Talalma              |   1 |
+
+#+NAME: housing.type
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  citu.cer[,.N,Housing.type]
+#+end_src
+
+#+RESULTS: housing.type
+| Housing.type                   |   N |
+|--------------------------------+-----|
+|                                |  83 |
+| Owned                          |  97 |
+| Rented                         | 113 |
+| Lease house                    |   1 |
+| Provided rent free by employer |   4 |
+
+
+#+NAME: work
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  citu.cer[grep("Operator",What.is.the.work.you.do.in.the.factory,ignore.case =TRUE),What.is.the.work.you.do.in.the.factory:="Operator"]
+  citu.cer[grep("oprat[o,a,e]r",What.is.the.work.you.do.in.the.factory,ignore.case =TRUE),What.is.the.work.you.do.in.the.factory:="Operator"]
+  citu.cer[grep("opret[o,a,e]r",What.is.the.work.you.do.in.the.factory,ignore.case =TRUE),What.is.the.work.you.do.in.the.factory:="Operator"]
+  citu.cer[grep("oper[e,a]t[e,a,o]r",What.is.the.work.you.do.in.the.factory,ignore.case =TRUE),What.is.the.work.you.do.in.the.factory:="Operator"]
+  citu.cer[grep("operating",What.is.the.work.you.do.in.the.factory,ignore.case =TRUE),What.is.the.work.you.do.in.the.factory:="Operator"]
+  citu.cer[,.N,What.is.the.work.you.do.in.the.factory]
+#+end_src
+
+#+RESULTS: work
+| What.is.the.work.you.do.in.the.factory                                           |  N |
+|----------------------------------------------------------------------------------+----|
+|                                                                                  | 95 |
+| Drinks                                                                           |  1 |
+| Trainer                                                                          |  2 |
+| Team leader                                                                      |  1 |
+| Operator                                                                         | 64 |
+| Election                                                                         |  1 |
+| Teacher                                                                          |  1 |
+| Main stores employee                                                             |  1 |
+| Brazing                                                                          |  1 |
+| Worker                                                                           |  2 |
+| एक्सट्रूजन ऑपरेटर                                                                    |  1 |
+| Electricen                                                                       |  1 |
+| Electrician                                                                      |  3 |
+| Welder (at present dismissed )                                                   |  1 |
+| Fitter                                                                           | 23 |
+| Quality check                                                                    |  1 |
+| Quality inspector                                                                |  5 |
+| Production                                                                       |  3 |
+| Die maintenance                                                                  |  1 |
+| Painter                                                                          |  6 |
+| Technician                                                                       |  3 |
+| Quality inspection                                                               |  1 |
+| CAD CAM                                                                          |  1 |
+| Dismissed                                                                        |  1 |
+| Welder                                                                           | 11 |
+| Engineering Electrical & Instrumentation Maintenance .                           |  1 |
+| Assembly                                                                         |  2 |
+| Assembly work                                                                    |  1 |
+| Pre assembly                                                                     |  1 |
+| 5years                                                                           |  1 |
+| Control panel assembly and wiring                                                |  2 |
+| Logistics Service                                                                |  1 |
+| Training                                                                         |  1 |
+| Manufacturing                                                                    |  1 |
+| Fitting                                                                          |  1 |
+| ಆಪರೇಟರ್                                                                          |  1 |
+| Employee                                                                         |  1 |
+| As a Trainer                                                                     |  1 |
+| D e d maintance                                                                  |  1 |
+| fitter                                                                           |  2 |
+| Chargeman                                                                        |  1 |
+| Kirloskar ferrous karamikar sangh Genaral secretary.  Bevinahalli Tq Dist Koppal |  1 |
+| Maltiskild (Fitter/Welder).                                                      |  1 |
+| MECHANICAL FITTER                                                                |  1 |
+| Workmen                                                                          |  1 |
+| Ts                                                                               |  1 |
+| QA                                                                               |  1 |
+| Cauvel helpher                                                                   |  1 |
+| Maintenance fitter                                                               |  1 |
+| Trainee                                                                          |  1 |
+| Apprentance Fitter                                                               |  1 |
+| Kausual helper                                                                   |  1 |
+| HR executive                                                                     |  1 |
+| Hr executive                                                                     |  1 |
+| Electrication                                                                    |  3 |
+| Process                                                                          |  1 |
+| L v winder                                                                       |  1 |
+| Nice                                                                             |  1 |
+| L V windr                                                                        |  1 |
+| Winding                                                                          |  3 |
+| Testing  & cca                                                                   |  1 |
+| PAINTER                                                                          |  1 |
+| Assembly section                                                                 |  1 |
+| Winder                                                                           |  2 |
+| Permanent. Warkmen                                                               |  1 |
+| Lab technician                                                                   |  1 |
+| Rider Bottel inspection                                                          |  1 |
+| Oparetar                                                                         |  2 |
+| Store                                                                            |  1 |
+| Machine Maintenance Workman employee                                             |  1 |
+| Helpher                                                                          |  1 |
+| Machine maintenance                                                              |  1 |
+| Assembling                                                                       |  1 |
+| Gear box assbly                                                                  |  1 |
+| Workar                                                                           |  2 |
+| Fitter work                                                                      |  1 |
+| Helper                                                                           |  1 |
+| Maintenance Department                                                           |  1 |
+| Casual                                                                           |  1 |
+| Hk                                                                               |  2 |
+| Canteen                                                                          |  1 |
+
+#+NAME: work.duration
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  citu.cer[,.N,How.long.have.you.been.working.in.this.factory]
+#+end_src
+
+#+RESULTS: work.duration
+| How.long.have.you.been.working.in.this.factory |   N |
+|------------------------------------------------+-----|
+|                                                | 100 |
+| More than 20 years                             |  50 |
+| 10 - 20 years                                  |  90 |
+| 5 - 10 years                                   |  39 |
+| 3 - 5 years                                    |   9 |
+| Less than 1 year                               |   9 |
+| 1 - 3 years                                    |   1 |
+
+#+NAME: What.type.of.employment.do.you.have
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  citu.cer[,.N,What.type.of.employment.do.you.have]
+#+end_src
+
+#+RESULTS: What.type.of.employment.do.you.have
+| What.type.of.employment.do.you.have |   N |
+|-------------------------------------+-----|
+|                                     | 107 |
+| Contractual                         |   6 |
+| Permanent                           | 163 |
+| Trainee                             |   2 |
+| FTE                                 |   5 |
+| Casual                              |  12 |
+| Apprentice                          |   3 |
+How.many.hours.do.you.work.per.day
