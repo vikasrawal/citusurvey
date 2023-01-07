@@ -49,6 +49,8 @@ citu.cer[,.N,Sex]
 | Male   | 257 |
 | Female |   7 |
 
+
+
 #+NAME: age-group
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
   citu.cer[Age<=18,Age.group:="1. Up to 18"]
@@ -71,11 +73,13 @@ citu.cer[,.N,Sex]
 | 5. More than 60   |   2 |
 | 6. No information |  28 |
 
+
 #+NAME: social-group
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
 citu.cer[,.N,Social.Group]
 #+end_src
 
+#+CAPTION: Number of workers in different social groups
 #+RESULTS: social-group
 | Social.Group |   N |
 |--------------+-----|
@@ -85,6 +89,10 @@ citu.cer[,.N,Social.Group]
 | General      |  89 |
 | ST           |   6 |
 
+
+
+
+#+CAPTION: Number of workers, by religion
 #+NAME: religion
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
 citu.cer[,.N,Religion]
@@ -110,6 +118,7 @@ citu.cer[,.N,Religion]
   citu.cer[,.N,Mother.tongue]
 #+end_src
 
+#+CAPTION: Number of workers who reported different mother tongues
 #+RESULTS: mother.tongue
 | Mother.tongue |   N |
 |---------------+-----|
@@ -130,6 +139,7 @@ citu.cer[,.N,Religion]
   citu.cer[,.N,Education.Training]
 #+end_src
 
+#+CAPTION: Number of workers, by level of education
 #+RESULTS: education
 | Education.Training   |   N |
 |----------------------+-----|
@@ -150,6 +160,7 @@ citu.cer[,.N,Religion]
   citu.cer[,.N,Housing.type]
 #+end_src
 
+#+CAPTION: Number of workers, by type of housing
 #+RESULTS: housing.type
 | Housing.type                   |   N |
 |--------------------------------+-----|
@@ -159,6 +170,8 @@ citu.cer[,.N,Religion]
 | Lease house                    |   1 |
 | Provided rent free by employer |   4 |
 
+
++ Type of work in the factory was not coded. So there are various entries. These should somehow be categorised to make them meaningful.
 
 #+NAME: work
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -170,6 +183,7 @@ citu.cer[,.N,Religion]
   citu.cer[,.N,What.is.the.work.you.do.in.the.factory]
 #+end_src
 
+#+CAPTION: Number of workers, by level of education
 #+RESULTS: work
 | What.is.the.work.you.do.in.the.factory                                           |  N |
 |----------------------------------------------------------------------------------+----|
