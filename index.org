@@ -280,6 +280,7 @@ citu.cer[,.N,Religion]
   citu.cer[,.N,What.type.of.employment.do.you.have]
 #+end_src
 
+#+CAPTION: Type of employment contract
 #+RESULTS: What.type.of.employment.do.you.have
 | What.type.of.employment.do.you.have |   N |
 |-------------------------------------+-----|
@@ -302,6 +303,7 @@ citu.cer[,.N,Religion]
            .(hours.of.work.per.day=round(How.many.hours.do.you.work.per.day))]
 #+end_src
 
+#+CAPTION: How many hours do you work per day
 #+RESULTS: How.many.hours.do.you.work.per.day
 | hours.of.work.per.day |   N |
 |-----------------------+-----|
