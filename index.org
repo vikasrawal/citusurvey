@@ -25,14 +25,11 @@
   gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
   gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
   gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
-
-#+end_src
-
-#+NAME: googlesheet-setup
-#+BEGIN_SRC R :results silent :exports none
-  library(googlesheets4)
-  gs4_deauth()
-  citusheet<-"https://docs.google.com/spreadsheets/d/1KhtF2S6WktYIRz_n-Tt90Tyd1hojDdyAW8JccRcZmSA/edit?usp=sharing"
+  citu.cer[,.N,Phone.number][order(-N)]
+  citu.cer[!is.na(Age)]->citu.cer
+  c(1:nrow(citu.cer))->citu.cer$SNo
+  citu.cer[,.N,.(Name.Name,Phone.number)][order(-N)]
+  citu.cer[Phone.number=="91 99028 49859"]
 #+end_src
 
 + Number of workers by sex
@@ -46,9 +43,8 @@ citu.cer[,.N,Sex]
 #+RESULTS: sex
 | Sex    |   N |
 |--------+-----|
-|        |  34 |
-| Male   | 257 |
-| Female |   7 |
+| Male   | 145 |
+| Female |   5 |
 
 + Number of workers in different age groups
 
@@ -65,14 +61,12 @@ citu.cer[,.N,Sex]
 
 #+CAPTION: Number of workers in different age groups
 #+RESULTS: age-group
-| Age.group         |   N |
-|-------------------+-----|
-| 1. Up to 18       |   1 |
-| 2. Up to 30       |  44 |
-| 3. Up to 45       | 162 |
-| 4. Up to 60       |  61 |
-| 5. More than 60   |   2 |
-| 6. No information |  28 |
+| Age.group   |  N |
+|-------------+----|
+| 1. Up to 18 |  1 |
+| 2. Up to 30 | 25 |
+| 3. Up to 45 | 94 |
+| 4. Up to 60 | 30 |
 
 + Number of workers in different social groups
 
@@ -83,13 +77,13 @@ citu.cer[,.N,Social.Group]
 
 #+CAPTION: Number of workers in different social groups
 #+RESULTS: social-group
-| Social.Group |   N |
-|--------------+-----|
-|              |  60 |
-| OBC          | 115 |
-| SC           |  28 |
-| General      |  89 |
-| ST           |   6 |
+| Social.Group |  N |
+|--------------+----|
+| General      | 52 |
+| OBC          | 71 |
+| ST           |  4 |
+| SC           | 16 |
+|              |  7 |
 
 
 + Number of workers, by religion
@@ -103,11 +97,11 @@ citu.cer[,.N,Religion]
 #+RESULTS: religion
 | Religion  |   N |
 |-----------+-----|
-|           |  57 |
-| Hindu     | 220 |
+| Hindu     | 135 |
+| Christian |   3 |
 | Lingayath |   1 |
-| Muslim    |  14 |
-| Christian |   6 |
+| Muslim    |  10 |
+|           |   1 |
 
 + Number of workers who reported different mother tongues
 
@@ -124,19 +118,19 @@ citu.cer[,.N,Religion]
 
 #+CAPTION: Number of workers who reported different mother tongues
 #+RESULTS: mother.tongue
-| Mother.tongue |   N |
-|---------------+-----|
-|               |  60 |
-| Kannada       | 108 |
-| Hindi         |  15 |
-| Marathi       |   6 |
-| Urdu          |   7 |
-| Tamil         |   4 |
-| Kodava        |   1 |
-| Banjara       |   1 |
-| Konkani       |   1 |
-| Telugu        |  93 |
-| Lambadi       |   2 |
+| Mother.tongue |  N |
+|---------------+----|
+| Telugu        | 62 |
+| Kannada       | 63 |
+| Marathi       |  4 |
+| Hindi         | 12 |
+| Lambadi       |  1 |
+| Konkani       |  1 |
+| Tamil         |  2 |
+| Urdu          |  4 |
+| Banjara       |  1 |
+
++ Number of workers, by level of education
 
 #+NAME: education
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -145,19 +139,20 @@ citu.cer[,.N,Religion]
 
 #+CAPTION: Number of workers, by level of education
 #+RESULTS: education
-| Education.Training   |   N |
-|----------------------+-----|
-|                      |  63 |
-| Secondary            |  22 |
-| ITI                  | 145 |
-| Graduation           |  25 |
-| Higher Secondary     |  24 |
-| Diploma Engineering  |   8 |
-| Polytechnic          |   3 |
-| JOC                  |   1 |
-| Masters              |   4 |
-| Graduate Engineering |   2 |
-| Talalma              |   1 |
+| Education.Training   |  N |
+|----------------------+----|
+| Graduation           | 19 |
+| ITI                  | 89 |
+| JOC                  |  1 |
+| Higher Secondary     | 16 |
+| Graduate Engineering |  2 |
+| Secondary            | 13 |
+| Polytechnic          |  1 |
+| Diploma Engineering  |  7 |
+| Masters              |  2 |
+
++ Number of workers, by different types of housing
+
 
 #+NAME: housing.type
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -166,13 +161,13 @@ citu.cer[,.N,Religion]
 
 #+CAPTION: Number of workers, by type of housing
 #+RESULTS: housing.type
-| Housing.type                   |   N |
-|--------------------------------+-----|
-|                                |  83 |
-| Owned                          |  97 |
-| Rented                         | 113 |
-| Lease house                    |   1 |
-| Provided rent free by employer |   4 |
+| Housing.type                   |  N |
+|--------------------------------+----|
+| Provided rent free by employer |  3 |
+| Rented                         | 75 |
+| Owned                          | 70 |
+|                                |  1 |
+| Lease house                    |  1 |
 
 
 + Type of work in the factory was not coded. So there are various entries. These should somehow be categorised to make them meaningful.
@@ -189,89 +184,77 @@ citu.cer[,.N,Religion]
 
 #+CAPTION: Number of workers, by level of education
 #+RESULTS: work
-| What.is.the.work.you.do.in.the.factory                                           |  N |
-|----------------------------------------------------------------------------------+----|
-|                                                                                  | 95 |
-| Drinks                                                                           |  1 |
-| Trainer                                                                          |  2 |
-| Team leader                                                                      |  1 |
-| Operator                                                                         | 64 |
-| Election                                                                         |  1 |
-| Teacher                                                                          |  1 |
-| Main stores employee                                                             |  1 |
-| Brazing                                                                          |  1 |
-| Worker                                                                           |  2 |
-| एक्सट्रूजन ऑपरेटर                                                                    |  1 |
-| Electricen                                                                       |  1 |
-| Electrician                                                                      |  3 |
-| Welder (at present dismissed )                                                   |  1 |
-| Fitter                                                                           | 23 |
-| Quality check                                                                    |  1 |
-| Quality inspector                                                                |  5 |
-| Production                                                                       |  3 |
-| Die maintenance                                                                  |  1 |
-| Painter                                                                          |  6 |
-| Technician                                                                       |  3 |
-| Quality inspection                                                               |  1 |
-| CAD CAM                                                                          |  1 |
-| Dismissed                                                                        |  1 |
-| Welder                                                                           | 11 |
-| Engineering Electrical & Instrumentation Maintenance .                           |  1 |
-| Assembly                                                                         |  2 |
-| Assembly work                                                                    |  1 |
-| Pre assembly                                                                     |  1 |
-| 5years                                                                           |  1 |
-| Control panel assembly and wiring                                                |  2 |
-| Logistics Service                                                                |  1 |
-| Training                                                                         |  1 |
-| Manufacturing                                                                    |  1 |
-| Fitting                                                                          |  1 |
-| ಆಪರೇಟರ್                                                                          |  1 |
-| Employee                                                                         |  1 |
-| As a Trainer                                                                     |  1 |
-| D e d maintance                                                                  |  1 |
-| fitter                                                                           |  2 |
-| Chargeman                                                                        |  1 |
-| Kirloskar ferrous karamikar sangh Genaral secretary.  Bevinahalli Tq Dist Koppal |  1 |
-| Maltiskild (Fitter/Welder).                                                      |  1 |
-| MECHANICAL FITTER                                                                |  1 |
-| Workmen                                                                          |  1 |
-| Ts                                                                               |  1 |
-| QA                                                                               |  1 |
-| Cauvel helpher                                                                   |  1 |
-| Maintenance fitter                                                               |  1 |
-| Trainee                                                                          |  1 |
-| Apprentance Fitter                                                               |  1 |
-| Kausual helper                                                                   |  1 |
-| HR executive                                                                     |  1 |
-| Hr executive                                                                     |  1 |
-| Electrication                                                                    |  3 |
-| Process                                                                          |  1 |
-| L v winder                                                                       |  1 |
-| Nice                                                                             |  1 |
-| L V windr                                                                        |  1 |
-| Winding                                                                          |  3 |
-| Testing  & cca                                                                   |  1 |
-| PAINTER                                                                          |  1 |
-| Assembly section                                                                 |  1 |
-| Winder                                                                           |  2 |
-| Permanent. Warkmen                                                               |  1 |
-| Lab technician                                                                   |  1 |
-| Rider Bottel inspection                                                          |  1 |
-| Oparetar                                                                         |  2 |
-| Store                                                                            |  1 |
-| Machine Maintenance Workman employee                                             |  1 |
-| Helpher                                                                          |  1 |
-| Machine maintenance                                                              |  1 |
-| Assembling                                                                       |  1 |
-| Gear box assbly                                                                  |  1 |
-| Workar                                                                           |  2 |
-| Fitter work                                                                      |  1 |
-| Helper                                                                           |  1 |
-| Maintenance Department                                                           |  1 |
-| Casual                                                                           |  1 |
-| Hk                                                                               |  2 |
-| Canteen                                                                          |  1 |
+| What.is.the.work.you.do.in.the.factory                 |  N |
+|--------------------------------------------------------+----|
+| Fitter                                                 | 15 |
+| Welder                                                 |  9 |
+| Assembly                                               |  2 |
+| Quality inspector                                      |  4 |
+| Ts                                                     |  1 |
+| Operator                                               | 47 |
+| Electrication                                          |  1 |
+| Trainee                                                |  1 |
+| Machine maintenance                                    |  1 |
+| Technician                                             |  1 |
+| Maintenance Department                                 |  1 |
+| Logistics Service                                      |  1 |
+| Chargeman                                              |  1 |
+| Hr executive                                           |  1 |
+| Assembly work                                          |  1 |
+| Store                                                  |  1 |
+| Assembling                                             |  1 |
+| एक्सट्रूजन ऑपरेटर                                          |  1 |
+| L V windr                                              |  1 |
+| Painter                                                |  4 |
+| QA                                                     |  1 |
+| Fitter work                                            |  1 |
+| Casual                                                 |  1 |
+| Winder                                                 |  2 |
+| Engineering Electrical & Instrumentation Maintenance . |  1 |
+| Brazing                                                |  1 |
+| Electrician                                            |  2 |
+| Cauvel helpher                                         |  1 |
+| Testing  & cca                                         |  1 |
+| Apprentance Fitter                                     |  1 |
+| Helpher                                                |  1 |
+| Canteen                                                |  1 |
+| Workar                                                 |  1 |
+| Manufacturing                                          |  1 |
+| PAINTER                                                |  1 |
+| fitter                                                 |  1 |
+| Drinks                                                 |  1 |
+| Trainer                                                |  1 |
+| HR executive                                           |  1 |
+| Oparetar                                               |  1 |
+| Welder (at present dismissed )                         |  1 |
+| Winding                                                |  2 |
+| Hk                                                     |  2 |
+| Pre assembly                                           |  1 |
+| Quality inspection                                     |  1 |
+| MECHANICAL FITTER                                      |  1 |
+| Process                                                |  1 |
+| As a Trainer                                           |  1 |
+| Training                                               |  1 |
+| Production                                             |  3 |
+| Control panel assembly and wiring                      |  1 |
+| ಆಪರೇಟರ್                                                |  1 |
+| Dismissed                                              |  1 |
+| D e d maintance                                        |  1 |
+| Maintenance fitter                                     |  1 |
+| CAD CAM                                                |  1 |
+| Workmen                                                |  1 |
+| Teacher                                                |  1 |
+| Die maintenance                                        |  1 |
+| Fitting                                                |  1 |
+| Team leader                                            |  1 |
+| Assembly section                                       |  1 |
+| Maltiskild (Fitter/Welder).                            |  1 |
+| Helper                                                 |  1 |
+| Rider Bottel inspection                                |  1 |
+| Kausual helper                                         |  1 |
+| Quality check                                          |  1 |
+| Employee                                               |  1 |
+| Lab technician                                         |  1 |
 
 + How long have you been working in this factory?
 
@@ -281,15 +264,16 @@ citu.cer[,.N,Religion]
 #+end_src
 
 #+RESULTS: work.duration
-| How.long.have.you.been.working.in.this.factory |   N |
-|------------------------------------------------+-----|
-|                                                | 100 |
-| More than 20 years                             |  50 |
-| 10 - 20 years                                  |  90 |
-| 5 - 10 years                                   |  39 |
-| 3 - 5 years                                    |   9 |
-| Less than 1 year                               |   9 |
-| 1 - 3 years                                    |   1 |
+| How.long.have.you.been.working.in.this.factory |  N |
+|------------------------------------------------+----|
+| More than 20 years                             | 38 |
+| Less than 1 year                               |  9 |
+| 5 - 10 years                                   | 28 |
+| 3 - 5 years                                    |  7 |
+| 10 - 20 years                                  | 67 |
+| 1 - 3 years                                    |  1 |
+
++ Type of employment contract
 
 #+NAME: What.type.of.employment.do.you.have
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -299,11 +283,30 @@ citu.cer[,.N,Religion]
 #+RESULTS: What.type.of.employment.do.you.have
 | What.type.of.employment.do.you.have |   N |
 |-------------------------------------+-----|
-|                                     | 107 |
-| Contractual                         |   6 |
-| Permanent                           | 163 |
-| Trainee                             |   2 |
-| FTE                                 |   5 |
-| Casual                              |  12 |
+| Permanent                           | 121 |
 | Apprentice                          |   3 |
-How.many.hours.do.you.work.per.day
+| FTE                                 |   5 |
+| Trainee                             |   2 |
+| Contractual                         |   5 |
+| Casual                              |  13 |
+|                                     |   1 |
+
+
++ How many hours do you work per day?
+
+#+NAME: How.many.hours.do.you.work.per.day
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  citu.cer[How.many.hours.do.you.work.per.day>24,How.many.hours.do.you.work.per.day:=NA]
+
+  citu.cer[,.N,
+           .(hours.of.work.per.day=round(How.many.hours.do.you.work.per.day))]
+#+end_src
+
+#+RESULTS: How.many.hours.do.you.work.per.day
+| hours.of.work.per.day |   N |
+|-----------------------+-----|
+|                     8 | 111 |
+|                       |  23 |
+|                     9 |  14 |
+|                     7 |   1 |
+|                    12 |   1 |
