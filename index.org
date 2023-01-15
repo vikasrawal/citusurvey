@@ -412,6 +412,85 @@ citu.cer[,.N,Religion]
 | Employee                                               |  1 |
 | Lab technician                                         |  1 |
 
+#+NAME: tn.work
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[grep("Operator",What.is.the.work.you.do.in.the.factory,ignore.case =TRUE),What.is.the.work.you.do.in.the.factory:="Operator"]
+  tn.cer[grep("oprat[o,a,e]r",What.is.the.work.you.do.in.the.factory,ignore.case =TRUE),What.is.the.work.you.do.in.the.factory:="Operator"]
+  tn.cer[grep("opret[o,a,e]r",What.is.the.work.you.do.in.the.factory,ignore.case =TRUE),What.is.the.work.you.do.in.the.factory:="Operator"]
+  tn.cer[grep("oper[e,a]t[e,a,o]r",What.is.the.work.you.do.in.the.factory,ignore.case =TRUE),What.is.the.work.you.do.in.the.factory:="Operator"]
+  tn.cer[grep("operating",What.is.the.work.you.do.in.the.factory,ignore.case =TRUE),What.is.the.work.you.do.in.the.factory:="Operator"]
+  tn.cer[,.N,What.is.the.work.you.do.in.the.factory]
+#+end_src
+
+#+CAPTION: Number of workers, by level of education, Tamil Nadu
+#+RESULTS: tn.work
+| What.is.the.work.you.do.in.the.factory |  N |
+|----------------------------------------+----|
+| Senior Analyst - Technology            |  1 |
+| Software developer                     |  1 |
+| Developer                              |  1 |
+| Director                               |  1 |
+| Manager                                |  1 |
+| Asst Programmer                        |  1 |
+| Training                               |  1 |
+| Engineer                               |  2 |
+| Marketer                               |  1 |
+| Project manager                        |  1 |
+| Chief Arcitect                         |  1 |
+| Pagination                             |  1 |
+| Machine Learning Engineer              |  1 |
+| Software Testing                       |  1 |
+| Senior consultant                      |  1 |
+| SRE Specialist                         |  1 |
+| Infrastructure, Info architecture      |  1 |
+| Consultant in QA                       |  1 |
+| MANAGER                                |  1 |
+| Software Services                      |  1 |
+| Fitter                                 |  4 |
+| Non voice                              |  1 |
+| Technical Enginner                     |  1 |
+| Senior Cytogeneticist                  |  1 |
+| Operator                               | 47 |
+| Store incharge                         |  1 |
+|                                        |  5 |
+| PRODUCTI0N                             |  1 |
+| STORE INCHARGE                         |  1 |
+| SMT                                    |  2 |
+| QUALITY                                |  1 |
+| Welder                                 |  5 |
+| Ladyguard(SDB)                         |  1 |
+| Material planning& logistics           |  1 |
+| Supervisor                             |  2 |
+| House keeping                          |  2 |
+| Sanitary Worker                        |  1 |
+| Driver                                 |  2 |
+| Computer DEsigner                      |  1 |
+| Weld shop- Fixture maintenance         |  1 |
+| Tester                                 |  3 |
+| labour                                 |  1 |
+| Manufacturing                          |  1 |
+| Quality control officer                |  1 |
+| Manufacturing                          |  1 |
+| production                             |  2 |
+| Board work                             |  1 |
+| cleaning (BIN)                         |  1 |
+| Team Leader                            |  1 |
+| Helper                                 |  3 |
+| Maintenance                            |  1 |
+| painter                                |  1 |
+| service                                |  2 |
+| Service                                |  1 |
+| food service                           |  1 |
+| Painter                                |  2 |
+| Store room                             |  1 |
+| Asst.                                  |  1 |
+| Computer designer                      |  1 |
+| Sanitary worker                        |  1 |
+| Sanitary  worker                       |  1 |
+| Domestic worker                        |  1 |
+| HELPER                                 |  1 |
+
+
 + How long have you been working in this factory?
 
 #+NAME: work.duration
@@ -419,6 +498,7 @@ citu.cer[,.N,Religion]
   citu.cer[,.N,How.long.have.you.been.working.in.this.factory]
 #+end_src
 
+#+caption: Duration of employment in this factory
 #+RESULTS: work.duration
 | How.long.have.you.been.working.in.this.factory |  N |
 |------------------------------------------------+----|
@@ -428,6 +508,24 @@ citu.cer[,.N,Religion]
 | 3 - 5 years                                    |  7 |
 | 10 - 20 years                                  | 67 |
 | 1 - 3 years                                    |  1 |
+
+
+#+NAME: tn.work.duration
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,.N,How.long.have.you.been.working.in.this.factory]
+#+end_src
+
+
+#+caption: Duration of employment in this factory
+#+RESULTS: tn.work.duration
+| How.long.have.you.been.working.in.this.factory |  N |
+|------------------------------------------------+----|
+| 5-10 years                                     | 47 |
+| Below 1 year                                   |  7 |
+| 1-3 years                                      | 26 |
+| 3-5 years                                      | 17 |
+| 10-20 years                                    | 30 |
+| Above 20 years                                 |  5 |
 
 + Type of employment contract
 
@@ -447,6 +545,22 @@ citu.cer[,.N,Religion]
 | Contractual                         |   5 |
 | Casual                              |  13 |
 |                                     |   1 |
+
+#+NAME: tn.What.type.of.employment.do.you.have
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,.N,What.type.of.employment.do.you.have]
+#+end_src
+
+#+CAPTION: Type of employment contract, Tamil Nadu
+#+RESULTS: tn.What.type.of.employment.do.you.have
+| What.type.of.employment.do.you.have |  N |
+|-------------------------------------+----|
+| Permanent                           | 86 |
+| Contract                            | 27 |
+| FTE                                 |  4 |
+| Trainee                             |  6 |
+| Daily wages                         |  5 |
+|                                     |  4 |
 
 
 + How many hours do you work per day?
@@ -469,9 +583,28 @@ citu.cer[,.N,Religion]
 |                     7 |   1 |
 |                    12 |   1 |
 
+
+#+NAME: tn.How.many.hours.do.you.work.per.day
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[How.many.hours.do.you.work.per.day>24,How.many.hours.do.you.work.per.day:=NA]
+
+  tn.cer[,.N,
+           .(hours.of.work.per.day=How.many.hours.do.you.work.per.day)]
+#+end_src
+
+#+CAPTION: How many hours do you work per day, Tamil Nadu
+#+RESULTS: tn.How.many.hours.do.you.work.per.day
+| hours.of.work.per.day |   N |
+|-----------------------+-----|
+|                    10 |   6 |
+|                       | 120 |
+|                    12 |   3 |
+|                  2:10 |   1 |
+|                    11 |   2 |
+
 + Monthly wage
 
-  #+NAME: How.many.hours.do.you.work.per.day
+#+NAME: wages
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
   citu.cer[,Wage.Class:=NULL]
   citu.cer[What.is.your.monthly.wage.stipend.Rs.<100,
@@ -498,7 +631,7 @@ citu.cer[,.N,Religion]
 #+end_src
 
 #+CAPTION: Number of workers in different categories of monthly wages
-#+RESULTS:
+#+RESULTS: wages
 | Wage.Class          |  N |
 |---------------------+----|
 | 1. Less than 10,000 |  4 |
@@ -511,16 +644,56 @@ citu.cer[,.N,Religion]
 | 8. More than 70,000 | 11 |
 |                     | 30 |
 
+#+NAME: tnwages
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,Wage.Class:=NULL]
+  tn.cer[a.What.is.your.monthly.wage.Rs.<100,
+           a.What.is.your.monthly.wage.Rs.:=NA]
+  tn.cer[a.What.is.your.monthly.wage.Rs.<10000,
+           Wage.Class:="1. Less than 10,000"]
+  tn.cer[a.What.is.your.monthly.wage.Rs.<20000&is.na(Wage.Class),
+           Wage.Class:="2. Less than 20,000"]
+  tn.cer[a.What.is.your.monthly.wage.Rs.<30000&is.na(Wage.Class),
+           Wage.Class:="3. Less than 30,000"]
+  tn.cer[a.What.is.your.monthly.wage.Rs.<40000&is.na(Wage.Class),
+           Wage.Class:="4. Less than 40,000"]
+  tn.cer[a.What.is.your.monthly.wage.Rs.<50000&is.na(Wage.Class),
+           Wage.Class:="5. Less than 50,000"]
+  tn.cer[a.What.is.your.monthly.wage.Rs.<60000&is.na(Wage.Class),
+           Wage.Class:="6. Less than 60,000"]
+  tn.cer[a.What.is.your.monthly.wage.Rs.<70000&is.na(Wage.Class),
+           Wage.Class:="7. Less than 70,000"]
+  tn.cer[a.What.is.your.monthly.wage.Rs.>=70000&is.na(Wage.Class),
+           Wage.Class:="8. More than 70,000"]
+
+  tn.cer[,.N,
+           .(Wage.Class)][order(Wage.Class)]
+#+end_src
+
+#+CAPTION: Number of workers in different categories of monthly wages, Tamil Nadu
+#+RESULTS: tnwages
+| Wage.Class          |  N |
+|---------------------+----|
+| 2. Less than 20,000 | 63 |
+| 3. Less than 30,000 | 23 |
+| 4. Less than 40,000 | 10 |
+| 5. Less than 50,000 |  5 |
+| 6. Less than 60,000 |  2 |
+| 7. Less than 70,000 |  1 |
+| 8. More than 70,000 | 16 |
+|                     | 12 |
+
+
 + Overtime wages
 
-#+NAME: If.overtime.wages.are.paid.at.double.rate.or.not
+#+NAME: overtime.wages
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
   citu.cer[,.N,
            .(If.overtime.wages.are.paid.at.double.rate.or.not)]
 #+end_src
 
 #+CAPTION: Overtime wages
-#+RESULTS:
+#+RESULTS: overtime.wages
 | If.overtime.wages.are.paid.at.double.rate.or.not |  N |
 |--------------------------------------------------+----|
 | Yes                                              | 99 |
@@ -556,6 +729,21 @@ citu.cer[,.N,Religion]
 |                               48 |  2 |
 |                                  | 27 |
 
+#+NAME: tn.overtime.wages
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,.N,
+           .(If.overtime.wages.are.paid.at.double.rate.or.not)]
+#+end_src
+
+#+CAPTION: Overtime wages, Tamil Nadu
+#+RESULTS: tn.overtime.wages
+| If.overtime.wages.are.paid.at.double.rate.or.not |  N |
+|--------------------------------------------------+----|
+| No                                               | 79 |
+| Yes                                              | 47 |
+|                                                  |  6 |
+
+
 + PLI
 
 #+NAME: If.there.is.any.Production.Linked.Incentives.PLI.
@@ -572,6 +760,22 @@ citu.cer[,.N,Religion]
 | No                                                | 66 |
 | Yes                                               | 59 |
 |                                                   | 25 |
+
+#+NAME: PLI.tn
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,.N,
+           .(If.there.is.any.Production.Linked.Incentives.PLI.)][
+    order(If.there.is.any.Production.Linked.Incentives.PLI.)]
+#+end_src
+
+#+CAPTION: PLI, Tamil Nadu
+#+RESULTS: PLI.tn
+| If.there.is.any.Production.Linked.Incentives.PLI. |   N |
+|---------------------------------------------------+-----|
+| No                                                | 111 |
+| Yes                                               |  18 |
+|                                                   |   3 |
+
 
 #+NAME: If.yes.how.much.do.you.earn.as.incentive
 #+BEGIN_SRC R :results value :exports none :hlines :colnames yes
