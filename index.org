@@ -711,7 +711,7 @@ citu.cer[,.N,Religion]
     citu.cer[Sex=="Female",.N,.(Maternity.leave=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Maternity.Leave,Sex)]
   #+end_src
 
-  #+CAPTION: Maternity leave
+  #+CAPTION: Maternity leave for women workers
   #+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Maternity.leave
   | Maternity.leave | Sex    | N |
   |-----------------+--------+---|
@@ -723,7 +723,7 @@ citu.cer[,.N,Religion]
     citu.cer[Sex=="Male",.N,.(Paternity.leave=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Paternity.Leave,Sex)]
   #+end_src
 
-  #+CAPTION: Paternity leave
+  #+CAPTION: Paternity leave for male workers
   #+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Paternity.Leave
   | Paternity.leave | Sex  |   N |
   |-----------------+------+-----|
@@ -886,8 +886,6 @@ citu.cer[,.N,Religion]
   |                | 35 |
 
 + Discrimination
-
-
 
 #+NAME: Discrimination..Permanent.non.permanent
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
