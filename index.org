@@ -640,3 +640,89 @@ citu.cer[,.N,Religion]
   |                    | 98 |
 
 + Other benefits
+
+
+
+  #+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.PF
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(PF=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.PF)]
+  #+end_src
+
+ #+CAPTION: PF
+  #+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.PF
+  | PF |   N |
+  |----+-----|
+  | PF | 103 |
+  |    |  47 |
+
+#+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.ESI
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(ESI=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.ESI)]
+  #+end_src
+
+  #+CAPTION: ESI
+  #+RESULTS: ESI Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.ESI
+  | ESI |   N |
+  |-----+-----|
+  |     | 127 |
+  | ESI |  23 |
+
+
+#+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Mediclaim
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Mediclaim=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Mediclaim)]
+  #+end_src
+
+  #+CAPTION: Mediclaim
+  #+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Mediclaim
+  | Mediclaim |  N |
+  |-----------+----|
+  | Mediclaim | 90 |
+  |           | 60 |
+
+#+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Pension
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Pension=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Pension)]
+  #+end_src
+
+#+CAPTION: Pension
+#+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Pension
+| Pension |  N |
+|---------+----|
+| Pension | 59 |
+|         | 91 |
+
+#+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Gratuity
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Gratuity=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Gratuity)]
+  #+end_src
+
+  #+CAPTION: Gratuity
+  #+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Gratuity
+  | Gratuity |  N |
+  |----------+----|
+  | Gratuity | 77 |
+  |          | 73 |
+
+#+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Maternity.Leave
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[Sex=="Female",.N,.(Maternity.leave=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Maternity.Leave,Sex)]
+  #+end_src
+
+  #+CAPTION: Maternity leave
+  #+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Maternity.leave
+  | Maternity.leave | Sex    | N |
+  |-----------------+--------+---|
+  |                 | Female | 4 |
+  | Maternity Leave | Female | 1 |
+
+#+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Paternity.Leave
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[Sex=="Male",.N,.(Paternity.leave=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Paternity.Leave,Sex)]
+  #+end_src
+
+  #+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Paternity.Leave
+  | Paternity.leave | Sex  |   N |
+  |-----------------+------+-----|
+  |                 | Male | 118 |
+  | Paternity Leave | Male |  27 |
