@@ -1240,6 +1240,21 @@ citu.cer[,.N,Religion]
   | PF | 103 |
   |    |  47 |
 
+
+  #+NAME: tn.PF
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    tn.cer[,.N,.(PF=Whether.you.get.PF.)]
+  #+end_src
+
+ #+CAPTION: PF, Tamil Nadu
+  #+RESULTS: tn.PF
+  | PF  |  N |
+  |-----+----|
+  | Yes | 96 |
+  |     | 29 |
+  | No  |  7 |
+
+
 #+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.ESI
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
     citu.cer[,.N,.(ESI=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.ESI)]
@@ -1253,6 +1268,19 @@ citu.cer[,.N,Religion]
   | ESI |  23 |
 
 
+  #+NAME: tn.esi
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    tn.cer[,.N,.(ESI=Whether.you.get.ESI.)]
+  #+end_src
+
+  #+CAPTION: ESI, Tamil Nadu
+  #+RESULTS: tn.esi
+  | ESI |  N |
+  |-----+----|
+  |     | 57 |
+  | Yes | 59 |
+  | No  | 16 |
+
 #+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Mediclaim
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
     citu.cer[,.N,.(Mediclaim=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Mediclaim)]
@@ -1265,29 +1293,45 @@ citu.cer[,.N,Religion]
   | Mediclaim | 90 |
   |           | 60 |
 
-#+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Pension
+#+NAME: tn.Mediclaim
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
-    citu.cer[,.N,.(Pension=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Pension)]
+    tn.cer[,.N,.(Mediclaim=Whether.you.get.Mediclaim.)]
+  #+end_src
+
+  #+CAPTION: Mediclaim, Tamil Nadu
+  #+RESULTS: tn.Mediclaim
+  | Mediclaim |  N |
+  |-----------+----|
+  | Yes       | 41 |
+  |           | 77 |
+  | No        | 14 |
+
+
+#+NAME: tn.Pension
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    tn.cer[,.N,.(Pension=Whether.you.get.Pension.)]
   #+end_src
 
 #+CAPTION: Pension
-#+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Pension
+#+RESULTS: tn.Pension
 | Pension |  N |
 |---------+----|
-| Pension | 59 |
-|         | 91 |
+|         | 83 |
+| No      | 27 |
+| Yes     | 22 |
 
-#+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Gratuity
+#+NAME: tn.Gratuity
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
-    citu.cer[,.N,.(Gratuity=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Gratuity)]
+    tn.cer[,.N,.(Gratuity=Whether.you.get.graduity.)]
   #+end_src
 
   #+CAPTION: Gratuity
-  #+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Gratuity
+  #+RESULTS: tn.Gratuity
   | Gratuity |  N |
   |----------+----|
-  | Gratuity | 77 |
-  |          | 73 |
+  | Yes      | 24 |
+  | No       | 21 |
+  |          | 87 |
 
 #+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Maternity.Leave
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -1301,6 +1345,20 @@ citu.cer[,.N,Religion]
   |                 | Female | 4 |
   | Maternity Leave | Female | 1 |
 
+#+NAME: tn.Maternity.Leave
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    tn.cer[Gender=="Female",.N,.(Maternity.leave=Whether.you.get.maternity.leave.,Gender)]
+  #+end_src
+
+  #+CAPTION: Maternity leave for women workers, Tamil Nadu
+  #+RESULTS: tn.Maternity.leave
+  | Maternity.leave | Gender |  N |
+  |-----------------+--------+----|
+  | Yes             | Female |  9 |
+  |                 | Female | 24 |
+  | No              | Female |  2 |
+
+
 #+NAME: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Paternity.Leave
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
     citu.cer[Sex=="Male",.N,.(Paternity.leave=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Paternity.Leave,Sex)]
@@ -1312,6 +1370,7 @@ citu.cer[,.N,Religion]
   |-----------------+------+-----|
   |                 | Male | 118 |
   | Paternity Leave | Male |  27 |
+
 
 #+NAME: Whether.the.employers.are.paying.for.PF.or.ESI.PF
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -1327,6 +1386,7 @@ citu.cer[,.N,Religion]
   |                             |  35 |
 
 
+
 #+NAME: Whether.the.employers.are.paying.for.PF.or.ESI.ESI
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
     citu.cer[,.N,.(Employer.Contribution.To.PF=Whether.the.employers.are.paying.for.PF.or.ESI.ESI)]
@@ -1339,6 +1399,19 @@ citu.cer[,.N,Religion]
   | No                          | 78 |
   | Yes                         | 37 |
   |                             | 35 |
+
+  #+NAME: tn.employers.are.paying.for.PF
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    tn.cer[,.N,.(Whether.the.employers.are.paying.for.PF.ESI)]
+  #+end_src
+
+  #+CAPTION: Employers contributing to PF and ESI, Tamil Nadu
+  #+RESULTS: tn.employers.are.paying.for.PF
+  | Whether.the.employers.are.paying.for.PF.ESI |  N |
+  |---------------------------------------------+----|
+  | Yes                                         | 97 |
+  | No                                          | 23 |
+  |                                             | 12 |
 
 + Welfare facilities
 
@@ -1354,6 +1427,21 @@ citu.cer[,.N,Religion]
   | Drinking water | 109 |
   |                |  41 |
 
+#+NAME: tn.Drinking.water
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,facilities:=NA]
+  tn.cer[grep("Drinking",Welfare.facilities.at.workplace),facilities:="Yes"]
+  tn.cer[,.N,.(Drinking.water=facilities)]
+  #+end_src
+
+  #+CAPTION: Drinking water
+  #+RESULTS: tn.Drinking.water
+  | Drinking.water |   N |
+  |----------------+-----|
+  | Yes            | 116 |
+  |                |  16 |
+
+
 #+NAME: Welfare.facilities.at.workplace.Toilet.for.men
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
     citu.cer[,.N,.(Toilet.for.men=Welfare.facilities.at.workplace.Toilet.for.men)]
@@ -1365,6 +1453,21 @@ citu.cer[,.N,Religion]
   |----------------+-----|
   | Toilet for men | 107 |
   |                |  43 |
+
+#+NAME: tn.toilet.for.men
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,facilities:=NA]
+  tn.cer[grep("Toilet for men",Welfare.facilities.at.workplace),facilities:="Yes"]
+  tn.cer[,.N,.(Toilet.for.men=facilities)]
+  #+end_src
+
+#+caption: Toilet for men, Tamil Nadu
+  #+RESULTS: tn.toilet.for.men
+  | Toilet.for.men |   N |
+  |----------------+-----|
+  | Yes            | 114 |
+  |                |  18 |
+
 
 #+NAME: Welfare.facilities.at.workplace.Toilet.for.women
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -1378,6 +1481,19 @@ citu.cer[,.N,Religion]
   |                  | 63 |
   | Toilet for women | 87 |
 
+#+NAME: tn.toilet.for.women
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,facilities:=NA]
+  tn.cer[grep("Toilet for women",Welfare.facilities.at.workplace),facilities:="Yes"]
+  tn.cer[,.N,.(Toilet.for.women=facilities)]
+  #+end_src
+
+  #+caption: Toilet for women, Tamil Nadu
+  #+RESULTS: tn.toilet.for.women
+  | Toilet.for.women |   N |
+  |------------------+-----|
+  | Yes              | 104 |
+  |                  |  28 |
 
 
 #+NAME: Welfare.facilities.at.workplace.Medical.facilities
@@ -1392,6 +1508,21 @@ citu.cer[,.N,Religion]
   | Medical facilities | 105 |
   |                    |  45 |
 
+#+NAME: tn.Medical.facilities
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,facilities:=NA]
+  tn.cer[grep("Medical",Welfare.facilities.at.workplace),facilities:="Yes"]
+  tn.cer[,.N,.(Medical.facilities=facilities)]
+  #+end_src
+
+  #+caption: Medical facilities, Tamil Nadu
+  #+RESULTS: tn.Medical.facilities
+  | Medical.facilities |  N |
+  |--------------------+----|
+  | Yes                | 82 |
+  |                    | 50 |
+
+
 #+NAME: Welfare.facilities.at.workplace.Transport.facilities
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
     citu.cer[,.N,.(Transport.facilities=Welfare.facilities.at.workplace.Transport.facilities)]
@@ -1404,6 +1535,19 @@ citu.cer[,.N,Religion]
   | Transport facilities | 89 |
   |                      | 61 |
 
+#+NAME: tn.transport.facilities
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,facilities:=NA]
+  tn.cer[grep("Transport",Welfare.facilities.at.workplace),facilities:="Yes"]
+  tn.cer[,.N,.(Transport.facilities=facilities)]
+  #+end_src
+
+  #+caption: Transport facilities, Tamil Nadu
+  #+RESULTS: tn.transport.facilities
+  | Transport.facilities |  N |
+  |----------------------+----|
+  |                      | 60 |
+  | Yes                  | 72 |
 
   #+NAME: Welfare.facilities.at.workplace.Canteen
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -1417,6 +1561,20 @@ citu.cer[,.N,Religion]
   | Canteen            | 105 |
   |                    |  45 |
 
+
+  #+NAME: tn.canteen.facilities
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,facilities:=NA]
+  tn.cer[grep("Canteen",Welfare.facilities.at.workplace),facilities:="Yes"]
+  tn.cer[,.N,.(Canteen.facilities=facilities)]
+  #+end_src
+
+  #+RESULTS: tn.canteen.facilities
+  | Canteen.facilities |  N |
+  |--------------------+----|
+  | Yes                | 92 |
+  |                    | 40 |
+
   #+NAME: Welfare.facilities.at.workplace.Crèche
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
     citu.cer[,.N,.(Crèche.facilities=Welfare.facilities.at.workplace.Crèche)]
@@ -1428,6 +1586,21 @@ citu.cer[,.N,Religion]
   |-------------------+-----|
   |                   | 142 |
   | Crèche            |   8 |
+
+  #+NAME: tn.creche.facilities
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,facilities:=NA]
+  tn.cer[grep("Crèche",Welfare.facilities.at.workplace),facilities:="Yes"]
+  tn.cer[,.N,.(Creche.facilities=facilities)]
+  #+end_src
+
+  #+caption: Crèche, Tamil Nadu
+  #+RESULTS: tn.creche.facilities
+  | Creche.facilities |  N |
+  |-------------------+----|
+  |                   | 86 |
+  | Yes               | 46 |
+
 
   #+NAME: Welfare.facilities.at.workplace.Restroom
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -1441,6 +1614,20 @@ citu.cer[,.N,Religion]
   | Restroom            |  42 |
   |                     | 108 |
 
+  #+NAME: tn.restroom.facilities
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,facilities:=NA]
+  tn.cer[grep("Rest",Welfare.facilities.at.workplace),facilities:="Yes"]
+  tn.cer[,.N,.(Rest.facilities=facilities)]
+  #+end_src
+
+  #+caption: Restroom, Tamil Nadu
+  #+RESULTS: tn.restroom.facilities
+  | Rest.facilities |  N |
+  |-----------------+----|
+  |                 | 85 |
+  | Yes             | 47 |
+
 #+NAME: Welfare.facilities.at.workplace.Parking.place
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
     citu.cer[,.N,.(Parking.facilities=Welfare.facilities.at.workplace.Parking.place)]
@@ -1452,6 +1639,22 @@ citu.cer[,.N,Religion]
   |--------------------+----|
   | Parking place      | 95 |
   |                    | 55 |
+
+
+  #+NAME: tn.parking.facilities
+  #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,facilities:=NA]
+  tn.cer[grep("Parking",Welfare.facilities.at.workplace),facilities:="Yes"]
+  tn.cer[,.N,.(Parking.facilities=facilities)]
+  #+end_src
+
+  #+RESULTS: tn.parking.facilities
+  | Parking.facilities |  N |
+  |--------------------+----|
+  | Yes                | 88 |
+  |                    | 44 |
+
+
 
 + Additional employment
 
@@ -1467,6 +1670,20 @@ citu.cer[,.N,Religion]
   | No             | 98 |
   | Yes            | 17 |
   |                | 35 |
+
+  #+NAME: tn.besides.this.factory.job
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    tn.cer[,.N,.(Additional.job=Are.you.also.engaged.in.any.other.job.besides.this.factory.job)]
+  #+end_src
+
+  #+caption: If engaged in any other job, Tamil Nadu
+  #+RESULTS: tn.besides.this.factory.job
+  | Additional.job |   N |
+  |----------------+-----|
+  | No             | 107 |
+  | Yes            |  14 |
+  |                |  11 |
+
 
 + Discrimination
 
