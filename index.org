@@ -9,27 +9,29 @@
 
 #+NAME: readdata
 #+BEGIN_SRC R :results silent :exports none
-  library(data.table)
-  library(openxlsx)
-  read.xlsx("citu-survey-cer.xlsx",sheet=2)->citu.cer
-  setDT(citu.cer)
-  names(citu.cer)
-  gsub("/",".",names(citu.cer))->names(citu.cer)
-  gsub(",",".",names(citu.cer))->names(citu.cer)
-  gsub("\\-",".",names(citu.cer))->names(citu.cer)
-  gsub("\\(",".",names(citu.cer))->names(citu.cer)
-  gsub("\\)",".",names(citu.cer))->names(citu.cer)
-  gsub("\\?","",names(citu.cer))->names(citu.cer)
-  gsub("\\,",".",names(citu.cer))->names(citu.cer)
-  gsub("\\&",".",names(citu.cer))->names(citu.cer)
-  gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
-  gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
-  gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
-  citu.cer[,.N,Phone.number][order(-N)]
-  citu.cer[!is.na(Age)]->citu.cer
-  c(1:nrow(citu.cer))->citu.cer$SNo
-  citu.cer[,.N,.(Name.Name,Phone.number)][order(-N)]
-  citu.cer[Phone.number=="91 99028 49859"]
+      library(data.table)
+      library(openxlsx)
+      read.xlsx("citu-survey-cer.xlsx",sheet=2)->citu.cer
+      setDT(citu.cer)
+      names(citu.cer)
+      gsub("/",".",names(citu.cer))->names(citu.cer)
+      gsub(",",".",names(citu.cer))->names(citu.cer)
+      gsub("\\-",".",names(citu.cer))->names(citu.cer)
+      gsub("\\(",".",names(citu.cer))->names(citu.cer)
+      gsub("\\)",".",names(citu.cer))->names(citu.cer)
+      gsub("\\?","",names(citu.cer))->names(citu.cer)
+      gsub("\\,",".",names(citu.cer))->names(citu.cer)
+      gsub("\\&",".",names(citu.cer))->names(citu.cer)
+      gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
+      gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
+      gsub("\\.\\.",".",names(citu.cer))->names(citu.cer)
+      gsub("Whether\\.there\\.is\\.any\\.differential\\.treatment\\.in\\.the\\.enterprise\\.on\\.the\\.basis\\.of\\.the\\.following\\:",
+       "Discrimination.",names(citu.cer))->names(citu.cer)
+      citu.cer[,.N,Phone.number][order(-N)]
+      citu.cer[!is.na(Age)]->citu.cer
+      c(1:nrow(citu.cer))->citu.cer$SNo
+      citu.cer[,.N,.(Name.Name,Phone.number)][order(-N)]
+      citu.cer[Phone.number=="91 99028 49859"]
 #+end_src
 
 + Number of workers by sex
@@ -721,8 +723,240 @@ citu.cer[,.N,Religion]
     citu.cer[Sex=="Male",.N,.(Paternity.leave=Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Paternity.Leave,Sex)]
   #+end_src
 
+  #+CAPTION: Paternity leave
   #+RESULTS: Whether.you.get.PF.ESI.Mediclaim.Pension.Gratuity.Maternity.leave.Paternity.leave.Paternity.Leave
   | Paternity.leave | Sex  |   N |
   |-----------------+------+-----|
   |                 | Male | 118 |
   | Paternity Leave | Male |  27 |
+
+#+NAME: Whether.the.employers.are.paying.for.PF.or.ESI.PF
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Employer.Contribution.To.PF=Whether.the.employers.are.paying.for.PF.or.ESI.PF)]
+  #+end_src
+
+  #+CAPTION: Employers contributing to PF
+  #+RESULTS: Whether.the.employers.are.paying.for.PF.or.ESI.PF
+  | Employer.Contribution.To.PF |   N |
+  |-----------------------------+-----|
+  | Yes                         | 108 |
+  | No                          |   7 |
+  |                             |  35 |
+
+
+#+NAME: Whether.the.employers.are.paying.for.PF.or.ESI.ESI
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Employer.Contribution.To.PF=Whether.the.employers.are.paying.for.PF.or.ESI.ESI)]
+  #+end_src
+
+  #+CAPTION: Employers contributing to ESI
+  #+RESULTS: Whether.the.employers.are.paying.for.PF.or.ESI.ESI
+  | Employer.Contribution.To.PF |  N |
+  |-----------------------------+----|
+  | No                          | 78 |
+  | Yes                         | 37 |
+  |                             | 35 |
+
++ Welfare facilities
+
+#+NAME: Welfare.facilities.at.workplace.Drinking.water
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Drinking.water=Welfare.facilities.at.workplace.Drinking.water)]
+  #+end_src
+
+  #+CAPTION: Drinking water
+  #+RESULTS: Welfare.facilities.at.workplace.Drinking.water
+  | Drinking.water |   N |
+  |----------------+-----|
+  | Drinking water | 109 |
+  |                |  41 |
+
+#+NAME: Welfare.facilities.at.workplace.Toilet.for.men
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Toilet.for.men=Welfare.facilities.at.workplace.Toilet.for.men)]
+  #+end_src
+
+  #+caption: Toilet for men
+  #+RESULTS: Welfare.facilities.at.workplace.Toilet.for.men
+  | Toilet.for.men |   N |
+  |----------------+-----|
+  | Toilet for men | 107 |
+  |                |  43 |
+
+#+NAME: Welfare.facilities.at.workplace.Toilet.for.women
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Toilet.for.men=Welfare.facilities.at.workplace.Toilet.for.women)]
+  #+end_src
+
+  #+caption: Toilet for women
+  #+RESULTS: Welfare.facilities.at.workplace.Toilet.for.women
+  | Toilet.for.men   |  N |
+  |------------------+----|
+  |                  | 63 |
+  | Toilet for women | 87 |
+
+
+
+#+NAME: Welfare.facilities.at.workplace.Medical.facilities
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Medical.facilities=Welfare.facilities.at.workplace.Medical.facilities)]
+  #+end_src
+
+  #+caption: Medical facilities
+  #+RESULTS: Welfare.facilities.at.workplace.Medical.facilities
+  | Medical.facilities |   N |
+  |--------------------+-----|
+  | Medical facilities | 105 |
+  |                    |  45 |
+
+#+NAME: Welfare.facilities.at.workplace.Transport.facilities
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Transport.facilities=Welfare.facilities.at.workplace.Transport.facilities)]
+  #+end_src
+
+  #+caption: Transport facilities
+  #+RESULTS: Welfare.facilities.at.workplace.Transport.facilities
+  | Transport.facilities |  N |
+  |----------------------+----|
+  | Transport facilities | 89 |
+  |                      | 61 |
+
+
+  #+NAME: Welfare.facilities.at.workplace.Canteen
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Canteen.facilities=Welfare.facilities.at.workplace.Canteen)]
+  #+end_src
+
+  #+caption: Canteen
+  #+RESULTS: Welfare.facilities.at.workplace.Canteen
+  | Canteen.facilities |   N |
+  |--------------------+-----|
+  | Canteen            | 105 |
+  |                    |  45 |
+
+  #+NAME: Welfare.facilities.at.workplace.Crèche
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Crèche.facilities=Welfare.facilities.at.workplace.Crèche)]
+  #+end_src
+
+  #+caption: Crèche
+  #+RESULTS: Welfare.facilities.at.workplace.Crèche
+  | Crèche.facilities |   N |
+  |-------------------+-----|
+  |                   | 142 |
+  | Crèche            |   8 |
+
+  #+NAME: Welfare.facilities.at.workplace.Restroom
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Restroom.facilities=Welfare.facilities.at.workplace.Restroom)]
+  #+end_src
+
+#+caption: Restroom
+  #+RESULTS: Welfare.facilities.at.workplace.Restroom
+  | Restroom.facilities |   N |
+  |---------------------+-----|
+  | Restroom            |  42 |
+  |                     | 108 |
+
+#+NAME: Welfare.facilities.at.workplace.Parking.place
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Parking.facilities=Welfare.facilities.at.workplace.Parking.place)]
+  #+end_src
+
+  #+caption: Parking
+  #+RESULTS: Welfare.facilities.at.workplace.Parking.place
+  | Parking.facilities |  N |
+  |--------------------+----|
+  | Parking place      | 95 |
+  |                    | 55 |
+
++ Additional employment
+
+#+NAME: Are.you.also.engaged.in.any.other.job.besides.this.factory.job
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Additional.job=Are.you.also.engaged.in.any.other.job.besides.this.factory.job)]
+  #+end_src
+
+  #+caption: If engaged in any other job
+  #+RESULTS: Are.you.also.engaged.in.any.other.job.besides.this.factory.job
+  | Additional.job |  N |
+  |----------------+----|
+  | No             | 98 |
+  | Yes            | 17 |
+  |                | 35 |
+
++ Discrimination
+
+
+
+#+NAME: Discrimination..Permanent.non.permanent
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Difference.Permanent.Temporary=Discrimination..Permanent.non.permanent)]
+  #+end_src
+
+#+caption: Differential treatment between permanent and non-permanent employees
+  #+RESULTS: Discrimination..Permanent.non.permanent
+  | Difference.Permanent.Temporary |   N |
+  |--------------------------------+-----|
+  |                                | 106 |
+  | Permanent / non-permanent      |  44 |
+
+#+NAME: Discrimination..Gender
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Difference.Gender=Discrimination..Gender)]
+  #+end_src
+
+  #+caption: Differential treatment by gender
+  #+RESULTS: Discrimination..Gender
+  | Difference.Gender |   N |
+  |-------------------+-----|
+  |                   | 132 |
+  | Gender            |  18 |
+
+  #+NAME: Discrimination..Caste
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Difference.Caste=Discrimination..Caste)]
+  #+end_src
+
+  #+caption: Differential treatment by caste
+  #+RESULTS: Discrimination..Caste
+  | Difference.Caste |   N |
+  |------------------+-----|
+  |                  | 135 |
+  | Caste            |  15 |
+
+  #+NAME: Discrimination..Religion
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Difference.Religion=Discrimination..Religion)]
+  #+end_src
+
+  #+caption: Differential treatment by religion
+  #+RESULTS: Discrimination..Religion
+  | Difference.Religion |   N |
+  |---------------------+-----|
+  |                     | 135 |
+  | Religion            |  15 |
+
+  #+NAME: Discrimination..Language
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Difference.Language=Discrimination..Language)]
+  #+end_src
+
+  #+caption: Differential treatment by language
+  #+RESULTS: Discrimination..Language
+  | Difference.Language |   N |
+  |---------------------+-----|
+  |                     | 133 |
+  | Language            |  17 |
+
+  #+NAME: Discrimination..Local.migrant
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Difference.Local.migrant=Discrimination..Local.migrant)]
+  #+end_src
+
+  #+caption: Differential treatment between local and migrant workers
+  #+RESULTS: Discrimination..Local.migrant
+  | Difference.Local.migrant |   N |
+  |--------------------------+-----|
+  |                          | 137 |
+  | Local / migrant          |  13 |
