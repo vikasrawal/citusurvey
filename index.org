@@ -312,3 +312,61 @@ citu.cer[,.N,Religion]
 |                     9 |  14 |
 |                     7 |   1 |
 |                    12 |   1 |
+
++ Monthly wage
+
+  #+NAME: How.many.hours.do.you.work.per.day
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  citu.cer[,Wage.Class:=NULL]
+  citu.cer[What.is.your.monthly.wage.stipend.Rs.<100,
+           What.is.your.monthly.wage.stipend.Rs.:=NA]
+  citu.cer[What.is.your.monthly.wage.stipend.Rs.<10000,
+           Wage.Class:="1. Less than 10,000"]
+  citu.cer[What.is.your.monthly.wage.stipend.Rs.<20000&is.na(Wage.Class),
+           Wage.Class:="2. Less than 20,000"]
+  citu.cer[What.is.your.monthly.wage.stipend.Rs.<30000&is.na(Wage.Class),
+           Wage.Class:="3. Less than 30,000"]
+  citu.cer[What.is.your.monthly.wage.stipend.Rs.<40000&is.na(Wage.Class),
+           Wage.Class:="4. Less than 40,000"]
+  citu.cer[What.is.your.monthly.wage.stipend.Rs.<50000&is.na(Wage.Class),
+           Wage.Class:="5. Less than 50,000"]
+  citu.cer[What.is.your.monthly.wage.stipend.Rs.<60000&is.na(Wage.Class),
+           Wage.Class:="6. Less than 60,000"]
+  citu.cer[What.is.your.monthly.wage.stipend.Rs.<70000&is.na(Wage.Class),
+           Wage.Class:="7. Less than 70,000"]
+  citu.cer[What.is.your.monthly.wage.stipend.Rs.>=70000&is.na(Wage.Class),
+           Wage.Class:="8. More than 70,000"]
+
+  citu.cer[,.N,
+           .(Wage.Class)][order(Wage.Class)]
+#+end_src
+
+#+CAPTION: Number of workers in different categories of monthly wages
+#+RESULTS:
+| Wage.Class          |  N |
+|---------------------+----|
+| 1. Less than 10,000 |  4 |
+| 2. Less than 20,000 | 15 |
+| 3. Less than 30,000 | 12 |
+| 4. Less than 40,000 | 22 |
+| 5. Less than 50,000 | 27 |
+| 6. Less than 60,000 | 19 |
+| 7. Less than 70,000 | 10 |
+| 8. More than 70,000 | 11 |
+|                     | 30 |
+
++ Overtime wages
+
+#+NAME: If.overtime.wages.are.paid.at.double.rate.or.not"
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  citu.cer[,.N,
+           .(If.overtime.wages.are.paid.at.double.rate.or.not)]
+#+end_src
+
+#+CAPTION: Overtime wages
+#+RESULTS:
+| If.overtime.wages.are.paid.at.double.rate.or.not |  N |
+|--------------------------------------------------+----|
+| Yes                                              | 99 |
+| No                                               | 26 |
+|                                                  | 25 |
