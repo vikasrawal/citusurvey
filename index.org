@@ -34,6 +34,34 @@
       citu.cer[Phone.number=="91 99028 49859"]
 #+end_src
 
+#+NAME: readtndata
+#+BEGIN_SRC R :results silent :exports none
+  library(data.table)
+  library(openxlsx)
+  read.xlsx("tn-survey.xlsx",sheet=1)->tn.cer
+  setDT(tn.cer)
+  ##names(tn.cer)
+  gsub("^[1-2]\\.[1-9].",".",names(tn.cer))->names(tn.cer)
+  gsub("/",".",names(tn.cer))->names(tn.cer)
+  gsub(",",".",names(tn.cer))->names(tn.cer)
+  gsub("\\-",".",names(tn.cer))->names(tn.cer)
+  gsub("\\(",".",names(tn.cer))->names(tn.cer)
+  gsub("\\)",".",names(tn.cer))->names(tn.cer)
+  gsub("\\?","",names(tn.cer))->names(tn.cer)
+  gsub("\\,",".",names(tn.cer))->names(tn.cer)
+  gsub("\\&",".",names(tn.cer))->names(tn.cer)
+  gsub("\\.\\.",".",names(tn.cer))->names(tn.cer)
+  gsub("\\.\\.",".",names(tn.cer))->names(tn.cer)
+  gsub("\\.\\.",".",names(tn.cer))->names(tn.cer)
+  gsub("^\\.","",names(tn.cer))->names(tn.cer)
+
+  ##gsub("Whether\\.there\\.is\\.any\\.differential\\.treatment\\.in\\.the\\.enterprise\\.on\\.the\\.basis\\.of\\.the\\.following\\:",
+  ## "Discrimination.",names(tn.cer))->names(tn.cer)
+  tn.cer[!is.na(Age)]->tn.cer
+  c(1:nrow(tn.cer))->tn.cer$SNo
+  tn.cer[,.N,.(Name,Phone.Number)][order(-N)]
+#+end_src
+
 + Number of workers by sex
 
 #+NAME: sex
@@ -47,6 +75,20 @@ citu.cer[,.N,Sex]
 |--------+-----|
 | Male   | 145 |
 | Female |   5 |
+
+#+NAME: tnsex
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+tn.cer[,.N,Gender]
+#+end_src
+
+#+CAPTION: Number of workers by sex, Tamil Nadu
+#+RESULTS: tnsex
+| Gender |  N |
+|--------+----|
+| Male   | 96 |
+|        |  1 |
+| Female | 35 |
+
 
 + Number of workers in different age groups
 
@@ -70,6 +112,25 @@ citu.cer[,.N,Sex]
 | 3. Up to 45 | 94 |
 | 4. Up to 60 | 30 |
 
+#+NAME: tn-age-group
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[Age<=18,Age.group:="1. Up to 18"]
+  tn.cer[is.na(Age.group)&Age<=30,Age.group:="2. Up to 30"]
+  tn.cer[is.na(Age.group)&Age<=45,Age.group:="3. Up to 45"]
+  tn.cer[is.na(Age.group)&Age<=60,Age.group:="4. Up to 60"]
+  tn.cer[is.na(Age.group)&Age>60,Age.group:="5. More than 60"]
+  tn.cer[is.na(Age.group),Age.group:="6. No information"]
+  tn.cer[,.N,Age.group][order(Age.group)]
+#+end_src
+
+#+CAPTION: Number of workers in different age groups, Tamil Nadu
+#+RESULTS: tn-age-group
+| Age.group   |  N |
+|-------------+----|
+| 2. Up to 30 | 45 |
+| 3. Up to 45 | 81 |
+| 4. Up to 60 |  6 |
+
 + Number of workers in different social groups
 
 #+NAME: social-group
@@ -87,6 +148,19 @@ citu.cer[,.N,Social.Group]
 | SC           | 16 |
 |              |  7 |
 
+#+NAME: tn.social-group
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+tn.cer[,.N,Caste]
+#+end_src
+
+#+CAPTION: Number of workers in different social groups, Tamil Nadu
+#+RESULTS: tn.social-group
+| Caste   |  N |
+|---------+----|
+| OBC     | 47 |
+| SC      | 56 |
+| General | 25 |
+| ST      |  4 |
 
 + Number of workers, by religion
 
@@ -104,6 +178,23 @@ citu.cer[,.N,Religion]
 | Lingayath |   1 |
 | Muslim    |  10 |
 |           |   1 |
+
+#+NAME: tn.religion
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[Religion=="Athiest",Religion:="Atheist"]
+  tn.cer[,.N,Religion]
+#+end_src
+
+#+CAPTION: Number of workers, by religion, Tamil Nadu
+#+RESULTS: tn.religion
+| Religion  |   N |
+|-----------+-----|
+| Atheist   |   3 |
+| Hindu     | 114 |
+|           |   3 |
+| Christian |   9 |
+| Muslim    |   3 |
+
 
 + Number of workers who reported different mother tongues
 
@@ -132,6 +223,34 @@ citu.cer[,.N,Religion]
 | Urdu          |  4 |
 | Banjara       |  1 |
 
+
+#+NAME: tn.mother.tongue
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    tn.cer[Mother.tongue=="Kannnada"|Mother.tongue=="kannada"|Mother.tongue=="KANNADA"|Mother.tongue=="ಕನ್ನಡ"|Mother.tongue=="Kasturi ಕನ್ನಡ",Mother.tongue:="Kannada"]
+    tn.cer[Mother.tongue=="Thelugu"|Mother.tongue=="TEUGU"|Mother.tongue=="Telgu"|Mother.tongue=="Telugu and Hindi"|Mother.tongue=="Telugu Hindi",Mother.tongue:="Telugu"]
+  tn.cer[Mother.tongue=="TAMIL",Mother.tongue:="Tamil"]
+  tn.cer[Mother.tongue=="Tamizh",Mother.tongue:="Tamil"]
+  tn.cer[Mother.tongue=="tamil",Mother.tongue:="Tamil"]
+  tn.cer[Mother.tongue=="Tamil ",Mother.tongue:="Tamil"]
+ tn.cer[Mother.tongue=="Malayalam ",Mother.tongue:="Malayalam"]
+  tn.cer[Mother.tongue=="हिंदी"|Mother.tongue=="HINDI"|Mother.tongue=="Hindu"|Mother.tongue=="Hind",Mother.tongue:="Hindi"]
+  tn.cer[Mother.tongue=="URDU",Mother.tongue:="Urdu"]
+  tn.cer[Mother.tongue=="Citu",Mother.tongue:=NA]
+  tn.cer[,.N,Mother.tongue]
+#+end_src
+
+#+CAPTION: Number of workers who reported different mother tongues, Tamil Nadu
+#+RESULTS: tn.mother.tongue
+| Mother.tongue |   N |
+|---------------+-----|
+| Tamil         | 123 |
+| English       |   1 |
+| Malayalam     |   2 |
+| telugu        |   2 |
+|               |   1 |
+| Assami        |   2 |
+| Oriya         |   1 |
+
 + Number of workers, by level of education
 
 #+NAME: education
@@ -153,6 +272,28 @@ citu.cer[,.N,Religion]
 | Diploma Engineering  |  7 |
 | Masters              |  2 |
 
+
+#+NAME: tn.education
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,.N,Education.Training]
+#+end_src
+
+#+CAPTION: Number of workers, by level of education, Tamil Nadu
+#+RESULTS: tn.education
+| Education.Training   |  N |
+|----------------------+----|
+| Graduate Engineering | 18 |
+| ITI                  | 28 |
+| Post Graduation      |  1 |
+| MBA                  |  1 |
+| Post Graduation      |  1 |
+| Graduation           | 13 |
+| Master's             |  1 |
+| Higher Secondary     | 22 |
+| Diploma Engineering  |  7 |
+| Secondary            | 33 |
+|                      |  7 |
+
 + Number of workers, by different types of housing
 
 
@@ -171,6 +312,19 @@ citu.cer[,.N,Religion]
 |                                |  1 |
 | Lease house                    |  1 |
 
+#+NAME: tn.housing.type
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,.N,Housing.type]
+#+end_src
+
+#+CAPTION: Number of workers, by type of housing, Tamil Nadu
+#+RESULTS: tn.housing.type
+| Housing.type                   |  N |
+|--------------------------------+----|
+| Owned                          | 77 |
+| Rented                         | 51 |
+|                                |  2 |
+| Provided rent free by employer |  2 |
 
 + Type of work in the factory was not coded. So there are various entries. These should somehow be categorised to make them meaningful.
 
