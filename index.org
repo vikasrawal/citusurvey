@@ -55,7 +55,7 @@
   gsub("\\.\\.",".",names(tn.cer))->names(tn.cer)
   gsub("^\\.","",names(tn.cer))->names(tn.cer)
   gsub("\\:","",names(tn.cer))->names(tn.cer)
-
+  names(tn.cer)[54]<-"differential.treatment"
   ##gsub("Whether\\.there\\.is\\.any\\.differential\\.treatment\\.in\\.the\\.enterprise\\.on\\.the\\.basis\\.of\\.the\\.following\\:",
   ## "Discrimination.",names(tn.cer))->names(tn.cer)
   tn.cer[!is.na(Age)]->tn.cer
@@ -1699,6 +1699,7 @@ citu.cer[,.N,Religion]
   |                                | 106 |
   | Permanent / non-permanent      |  44 |
 
+
 #+NAME: Discrimination..Gender
 #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
     citu.cer[,.N,.(Difference.Gender=Discrimination..Gender)]
@@ -1759,9 +1760,23 @@ citu.cer[,.N,Religion]
   |                          | 137 |
   | Local / migrant          |  13 |
 
+
+#+NAME: tn.Discrimination
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  tn.cer[,.N,.(differential.treatment)]
+  #+end_src
+
+  #+caption: Whether there is any differential treatment in the enterprise on the basis of permanency, Gender, Caste, Religion, Language, Local or migrant, Tamil Nadu
+  #+RESULTS: tn.Discrimination
+  | differential.treatment |  N |
+  |------------------------+----|
+  | Yes                    | 32 |
+  | No                     | 73 |
+  |                        | 27 |
+
+
+
 + Sexual harassment
-
-
 
   #+NAME: Sexual.harassment.at.workplace.Has.there.been.any.case.of.sexual.harassment
   #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
@@ -1776,6 +1791,20 @@ citu.cer[,.N,Religion]
   |                                                                             | 49 |
   | Yes                                                                         |  3 |
 
+  #+NAME: tn.sexual.harassment
+  #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    tn.cer[,.N,.(a.Has.there.been.any.case.of.sexual.harassment)]
+  #+end_src
+
+  #+CAPTION: Cases of sexual harassment, Tamil Nadu
+  #+RESULTS: tn.sexual.harassment
+  | a.Has.there.been.any.case.of.sexual.harassment |   N |
+  |------------------------------------------------+-----|
+  | No                                             | 107 |
+  |                                                |  18 |
+  | Yes                                            |   7 |
+
+
 #+NAME: Sexual.harassment.at.workplace.Is.there.an.Internal.Complaints.Committee.ICC.
   #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
     citu.cer[,.N,.(ICC=Sexual.harassment.at.workplace.Is.there.an.Internal.Complaints.Committee.ICC.)]
@@ -1788,6 +1817,19 @@ citu.cer[,.N,Religion]
   | Yes | 44 |
   | No  | 53 |
   |     | 53 |
+
+#+NAME: ICC.tn
+  #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    tn.cer[,.N,.(ICC=b.Has.there.been.any.formal.complaint.registered.against.sexual.harassment)]
+  #+end_src
+
+  #+caption: If there is an ICC, Tamil Nadu
+  #+RESULTS: ICC.tn
+  | ICC |   N |
+  |-----+-----|
+  | No  | 108 |
+  |     |  13 |
+  | Yes |  11 |
 
 + Union
 
@@ -1803,3 +1845,16 @@ citu.cer[,.N,Religion]
   | Yes   | 103 |
   | No    |   7 |
   |       |  40 |
+
+  #+NAME: tn.Whether.Union.is.there
+  #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    tn.cer[,.N,.(Union=Whether.Union.is.there)]
+  #+end_src
+
+  #+caption: If there is a union, Tamil Nadu
+  #+RESULTS: tn.Whether.Union.is.there
+  | Union |  N |
+  |-------+----|
+  | No    | 63 |
+  |       |  3 |
+  | Yes   | 66 |
