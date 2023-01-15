@@ -958,3 +958,48 @@ citu.cer[,.N,Religion]
   |--------------------------+-----|
   |                          | 137 |
   | Local / migrant          |  13 |
+
++ Sexual harassment
+
+
+
+  #+NAME: Sexual.harassment.at.workplace.Has.there.been.any.case.of.sexual.harassment
+  #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Sexual.harassment.at.workplace.Has.there.been.any.case.of.sexual.harassment)]
+  #+end_src
+
+  #+CAPTION: Cases of sexual harassment
+  #+RESULTS: Sexual.harassment.at.workplace.Has.there.been.any.case.of.sexual.harassment
+  | Sexual.harassment.at.workplace.Has.there.been.any.case.of.sexual.harassment |  N |
+  |-----------------------------------------------------------------------------+----|
+  | No                                                                          | 98 |
+  |                                                                             | 49 |
+  | Yes                                                                         |  3 |
+
+#+NAME: Sexual.harassment.at.workplace.Is.there.an.Internal.Complaints.Committee.ICC.
+  #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(ICC=Sexual.harassment.at.workplace.Is.there.an.Internal.Complaints.Committee.ICC.)]
+  #+end_src
+
+  #+caption: If there is an ICC
+  #+RESULTS: Sexual.harassment.at.workplace.Is.there.an.Internal.Complaints.Committee.ICC.
+  | ICC |  N |
+  |-----+----|
+  | Yes | 44 |
+  | No  | 53 |
+  |     | 53 |
+
++ Union
+
+  #+NAME: Whether.Union.is.there
+  #+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+    citu.cer[,.N,.(Union=Whether.Union.is.there)]
+  #+end_src
+
+  #+caption: If there is a union
+  #+RESULTS: Whether.Union.is.there
+  | Union |   N |
+  |-------+-----|
+  | Yes   | 103 |
+  | No    |   7 |
+  |       |  40 |
